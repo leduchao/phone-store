@@ -1,7 +1,10 @@
-export default function Home() {
+"use client";
+
+export default function HomePage() {
   return (
-    <div className="">
-      <p className="text-3xl font-bold">Hello world!</p>
+    <div>
+      <h1 className="text-3xl font-bold mb-6">Chào mừng đến với shop!</h1>
+      <p className="text-gray-600">Khám phá các sản phẩm hot nhất hiện nay!</p>
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Link from "next/link";
+import Header from "@/components/header";
+import Footer from "@/components/footer";
 
 export const metadata: Metadata = {
   title: "Phone Store",
@@ -14,17 +15,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="">
-        <header style={{ padding: 16, background: "#f2f2f2" }}>
-          <nav>
-            <Link href="/">Home</Link> | <Link href="/about">About</Link> |{" "}
-            <Link href="/products">Products</Link>
-          </nav>
-        </header>
-
-        <main style={{ padding: 16 }}>{children}</main>
-
-        <footer style={{ textAlign: "center" }}>© 2025 MyPhoneStore</footer>
+      <body className="min-h-screen flex flex-col bg-gray-50 text-gray-900">
+        <Header />
+        <main className="flex-grow pt-24 pb-12 max-w-7xl mx-auto px-4 w-full">
+          {children}
+        </main>
+        <Footer />
       </body>
     </html>
   );
