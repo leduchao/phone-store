@@ -23,6 +23,8 @@ interface BaseModalProps {
   triggerButtonVariant?: "default" | "outline";
   closeText?: string;
   saveText?: string;
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
   onAfterOpenChange?: () => void;
   onCancel?: () => void;
   onSave?: () => void | boolean | Promise<void | boolean>;
@@ -37,35 +39,45 @@ export default function BaseModal({
   triggerButtonVariant = "default",
   closeText = "Đóng",
   saveText = "Lưu thay đổi",
+  open,
+  onOpenChange,
   onAfterOpenChange,
   onCancel,
   onSave,
 }: BaseModalProps) {
-  const [open, setOpen] = useState(false);
+  const isControlled = open !== undefined && onOpenChange !== undefined;
+  const [internalOpen, setInternalOpen] = useState(false);
+  const isOpen = isControlled ? open : internalOpen;
+
+  const handleOpenChange = (next: boolean) => {
+    if (isControlled) {
+      onOpenChange(next);
+    } else {
+      setInternalOpen(next);
+    }
+
+    onAfterOpenChange?.();
+  };
 
   const handleSave = async () => {
     const result = await onSave?.();
-    if (result !== false) {
-      setOpen(false);
+    if (result !== false && !isControlled) {
+      setInternalOpen(false);
     }
   };
 
   const handleCancel = () => {
     onCancel?.();
-    setOpen(false);
+    if (!isControlled) setInternalOpen(false);
   };
 
   return (
-    <Dialog
-      open={open}
-      onOpenChange={(open) => {
-        setOpen(open);
-        onAfterOpenChange?.();
-      }}
-    >
-      <DialogTrigger asChild>
-        <Button variant={triggerButtonVariant}>{triggerButtonText}</Button>
-      </DialogTrigger>
+    <Dialog open={isOpen} onOpenChange={handleOpenChange}>
+      {!isControlled && (
+        <DialogTrigger asChild>
+          <Button variant={triggerButtonVariant}>{triggerButtonText}</Button>
+        </DialogTrigger>
+      )}
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>

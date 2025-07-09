@@ -13,15 +13,27 @@ import {
 import { Input } from "./ui/input";
 import { SignInRequest, signInSchema } from "@/schemas/sign-in.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useAuth } from "@/context/auth.context";
+import { AuthApis } from "@/apis/auth";
 
-export default function SignInModal() {
+export default function SignInModal({
+  isOpen,
+  onOpenChange,
+  onSuccess,
+}: {
+  isOpen: boolean;
+  onOpenChange: (open: boolean) => void;
+  onSuccess?: () => void;
+}) {
   const form = useForm<SignInRequest>({
     resolver: zodResolver(signInSchema),
     defaultValues: {
-      username: "",
+      email: "",
       password: "",
     },
   });
+
+  const { signIn } = useAuth();
 
   const onSave = async () => {
     const isValid = await form.trigger();
@@ -29,8 +41,24 @@ export default function SignInModal() {
 
     const data = form.getValues();
     console.log("Validated data:", data);
+
+    const resp = await AuthApis.signIn(data);
+    if (resp.ok) {
+      const user = await resp.json();
+      signIn({
+        isAdmin: user.data.isAdmin,
+        firstName: user.data.firstName,
+        profilePicture: user.data.profilePicture,
+      });
+      onSuccess?.();
+      onOpenChange?.(false);
+      form.reset();
+      return true;
+    }
+
+    console.error("Sign-in failed");
     form.reset();
-    return true;
+    return false;
   };
 
   return (
@@ -39,6 +67,8 @@ export default function SignInModal() {
       type="form"
       triggerButtonText="Đăng nhập"
       saveText="Đăng nhập"
+      open={isOpen}
+      onOpenChange={onOpenChange}
       onAfterOpenChange={() => form.reset()}
       onCancel={() => form.reset()}
       onSave={onSave}
@@ -46,12 +76,12 @@ export default function SignInModal() {
       <Form {...form}>
         <FormField
           control={form.control}
-          name="username"
+          name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Tên đăng nhập</FormLabel>
+              <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input placeholder="Tên đăng nhập" {...field} />
+                <Input placeholder="Email" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
