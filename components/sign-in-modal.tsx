@@ -35,10 +35,10 @@ export default function SignInModal() {
 
   return (
     <BaseModal
-      title="Sign In"
+      title="Đăng nhập"
       type="form"
-      triggerButtonText="Sign In"
-      saveText="Sign In"
+      triggerButtonText="Đăng nhập"
+      saveText="Đăng nhập"
       onAfterOpenChange={() => form.reset()}
       onCancel={() => form.reset()}
       onSave={onSave}
@@ -49,9 +49,9 @@ export default function SignInModal() {
           name="username"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Username</FormLabel>
+              <FormLabel>Tên đăng nhập</FormLabel>
               <FormControl>
-                <Input placeholder="shadcn" {...field} />
+                <Input placeholder="Tên đăng nhập" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -63,7 +63,7 @@ export default function SignInModal() {
           name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Password</FormLabel>
+              <FormLabel>Mật khẩu</FormLabel>
               <FormControl>
                 <Input placeholder="••••••••" type="password" {...field} />
               </FormControl>

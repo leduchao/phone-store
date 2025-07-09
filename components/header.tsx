@@ -17,7 +17,6 @@ export default function Header() {
 
   // const handleLoginSuccess = () => {
   //   setIsLoggedIn(true);
-  //   setShowModal(false);
   // };
 
   return (
@@ -33,7 +32,7 @@ export default function Header() {
                 asChild
                 className={navigationMenuTriggerStyle()}
               >
-                <Link href="/">Home</Link>
+                <Link href="/">Trang chủ</Link>
               </NavigationMenuLink>
             </NavigationMenuItem>
 
@@ -42,7 +41,7 @@ export default function Header() {
                 asChild
                 className={navigationMenuTriggerStyle()}
               >
-                <Link href="/products">Products</Link>
+                <Link href="/products">Sản phẩm</Link>
               </NavigationMenuLink>
             </NavigationMenuItem>
             <NavigationMenuItem>
@@ -50,7 +49,7 @@ export default function Header() {
                 asChild
                 className={navigationMenuTriggerStyle()}
               >
-                <Link href="/blogs">Blogs</Link>
+                <Link href="/blogs">Tin tức</Link>
               </NavigationMenuLink>
             </NavigationMenuItem>
           </NavigationMenuList>
