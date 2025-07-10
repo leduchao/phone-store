@@ -17,7 +17,7 @@ import { AuthApis } from "@/apis/auth";
 
 export default function Header() {
   const { user, signOut } = useAuth();
-  const { isOpen, open, close } = useModal();
+  const { isOpen, open, toggle } = useModal();
 
   const handleSignOut = async () => {
     const resp = await AuthApis.signOut();
@@ -27,7 +27,6 @@ export default function Header() {
     }
 
     signOut();
-    close();
   };
 
   return (
@@ -79,7 +78,7 @@ export default function Header() {
         ) : (
           <>
             <Button onClick={open}>Đăng nhập</Button>
-            <SignInModal isOpen={isOpen} onOpenChange={close} />
+            <SignInModal open={isOpen} onOpenChange={toggle} />
           </>
         )}
       </div>

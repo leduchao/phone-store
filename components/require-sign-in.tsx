@@ -1,18 +1,21 @@
 "use client";
 
 import { useAuth } from "@/context/auth.context";
-import { useModal } from "@/hooks/useModal";
 import SignInModal from "./sign-in-modal";
+import { ReactNode } from "react";
+import { useModal } from "@/hooks/useModal";
+
+interface RequireSignInProp {
+  children: ReactNode;
+  onContinue: () => void;
+}
 
 export default function RequireSignIn({
   children,
   onContinue,
-}: {
-  children: React.ReactNode;
-  onContinue: () => void;
-}) {
+}: RequireSignInProp) {
   const { isAuthenticated } = useAuth();
-  const { isOpen, open, close } = useModal();
+  const { isOpen, open, toggle } = useModal();
 
   const handleAction = () => {
     if (isAuthenticated) {
@@ -25,11 +28,7 @@ export default function RequireSignIn({
   return (
     <>
       <div onClick={handleAction}>{children}</div>
-      <SignInModal
-        isOpen={isOpen}
-        onOpenChange={close}
-        onSuccess={onContinue}
-      />
+      <SignInModal open={isOpen} onOpenChange={toggle} />
     </>
   );
 }

@@ -17,11 +17,11 @@ import { useAuth } from "@/context/auth.context";
 import { AuthApis } from "@/apis/auth";
 
 export default function SignInModal({
-  isOpen,
+  open,
   onOpenChange,
   onSuccess,
 }: {
-  isOpen: boolean;
+  open: boolean;
   onOpenChange: (open: boolean) => void;
   onSuccess?: () => void;
 }) {
@@ -35,13 +35,11 @@ export default function SignInModal({
 
   const { signIn } = useAuth();
 
-  const onSave = async () => {
+  const handleSignIn = async () => {
     const isValid = await form.trigger();
     if (!isValid) return false;
 
     const data = form.getValues();
-    console.log("Validated data:", data);
-
     const resp = await AuthApis.signIn(data);
     if (resp.ok) {
       const user = await resp.json();
@@ -51,7 +49,6 @@ export default function SignInModal({
         profilePicture: user.data.profilePicture,
       });
       onSuccess?.();
-      onOpenChange?.(false);
       form.reset();
       return true;
     }
@@ -65,13 +62,12 @@ export default function SignInModal({
     <BaseModal
       title="Đăng nhập"
       type="form"
-      triggerButtonText="Đăng nhập"
       saveText="Đăng nhập"
-      open={isOpen}
+      open={open}
       onOpenChange={onOpenChange}
       onAfterOpenChange={() => form.reset()}
       onCancel={() => form.reset()}
-      onSave={onSave}
+      onSave={handleSignIn}
     >
       <Form {...form}>
         <FormField
