@@ -35,6 +35,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         }
       } catch (err) {
         console.error("Error fetching user info", err);
+        setUser(null);
       }
     };
 
