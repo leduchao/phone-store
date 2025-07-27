@@ -1,6 +1,6 @@
 "use client";
 
-import { UserApis } from "@/apis/user";
+// import { UserApis } from "@/apis/user";
 import { createContext, useContext, useEffect, useState } from "react";
 
 interface User {
@@ -25,21 +25,20 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const signOut = () => setUser(null);
 
   useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const resp = await UserApis.getUserBasicInfo();
-        if (resp.ok) {
-          const user = await resp.json();
-          console.log("Fetched user info:", user);
-          setUser(user.data);
-        }
-      } catch (err) {
-        console.error("Error fetching user info", err);
-        setUser(null);
-      }
-    };
-
-    fetchUser();
+    // const fetchUser = async () => {
+    //   try {
+    //     const resp = await UserApis.getUserBasicInfo();
+    //     if (resp.ok) {
+    //       const user = await resp.json();
+    //       console.log("Fetched user info:", user);
+    //       setUser(user.data);
+    //     }
+    //   } catch (err) {
+    //     console.error("Error fetching user info", err);
+    //     setUser(null);
+    //   }
+    // };
+    // fetchUser();
   }, []);
 
   return (
