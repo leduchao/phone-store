@@ -1,23 +1,22 @@
-"use client";
-
-import { buttonVariants } from "@/components/ui/button";
 import Link from "next/link";
 
 export default function NotFound() {
   return (
-    <div className="">
+    <div className="pt-50">
       <main className="flex flex-col items-center justify-center flex-grow px-6 text-center">
-        <h1 className="text-6xl font-bold text-red-500 mb-4">404</h1>
-        <h2 className="text-2xl font-semibold mb-2">
-          Trang bạn tìm không tồn tại
-        </h2>
-        <p className="mb-6 max-w-md">
-          Có thể đường dẫn sai hoặc sản phẩm không còn tồn tại trên hệ thống của
-          chúng tôi.
-        </p>
-        <Link href="/" className={buttonVariants({ variant: "default" })}>
-          Về trang chủ
-        </Link>
+        <div className="flex mb-4 ">
+          <span className="text-4xl font-bold pr-5 border-r-5 border-neutral-950">
+            404
+          </span>
+          <span className="text-4xl font-bold pl-4">Page not found</span>
+        </div>
+        <div className=" max-w-lg">
+          Sorry we couldn&apos;t find this page. But don&apos;t worry, you can
+          find plenty of other things on our{" "}
+          <Link href="/" className="text-blue-500 hover:underline">
+            homepage
+          </Link>
+        </div>
       </main>
     </div>
   );
