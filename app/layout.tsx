@@ -24,7 +24,7 @@ export default function RootLayout({
       <body className="min-h-screen flex flex-col bg-gray-50 text-gray-900 min-w-[400px]">
         {/* <AuthProvider> */}
         <Header />
-        <main className="flex-grow pt-17 px-3 w-full">
+        <main className="flex-grow pt-17 w-full">
           <div className="py-5">{children}</div>
         </main>
         <Footer />
