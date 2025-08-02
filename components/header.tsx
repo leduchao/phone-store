@@ -154,9 +154,11 @@ export default function Header() {
             2
           </Badge>
         </Button>
-        <Button variant={"ghost"}>
-          <UserRoundIcon />
-        </Button>
+        <Link href={ROUTE_PATHS.SignIn}>
+          <Button variant={"ghost"}>
+            <UserRoundIcon />
+          </Button>
+        </Link>
       </div>
     </header>
   );
